@@ -1,0 +1,25 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "E-Sports Awareness by Region (Q1-Q2 2024)",
+  "width": 600,
+  "height": 350,
+  "data": {
+    "values": [
+      {"region": "Klang Valley", "awareness": 36, "familiarity": 45},
+      {"region": "Johor Bahru", "awareness": 26, "familiarity": 33},
+      {"region": "Penang", "awareness": 22, "familiarity": 25},
+      {"region": "Kuantan", "awareness": 17, "familiarity": 20}
+    ]
+  },
+  "mark": "bar",
+  "encoding": {
+    "x": {"field": "awareness", "type": "quantitative", "title": "Awareness (%)"},
+    "y": {"field": "region", "type": "nominal", "sort": "-x", "title": "Region"},
+    "color": {"field": "awareness", "type": "quantitative", "scale": {"scheme": "blues"}, "legend": false},
+    "tooltip": [
+      {"field": "region", "type": "nominal", "title": "Region"},
+      {"field": "awareness", "type": "quantitative", "title": "Awareness %"},
+      {"field": "familiarity", "type": "quantitative", "title": "Familiarity %"}
+    ]
+  }
+}

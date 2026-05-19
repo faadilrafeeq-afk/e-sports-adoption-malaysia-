@@ -1,0 +1,30 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "E-Sports Player Funnel: Awareness to Competition",
+  "width": 650,
+  "height": 400,
+  "data": {
+    "values": [
+      {"stage": "1. Aware of E-Sports", "count": 89, "percentage": 100},
+      {"stage": "2. Familiar with Games", "count": 52, "percentage": 58},
+      {"stage": "3. Active Players", "count": 28, "percentage": 31},
+      {"stage": "4. Competitive/Ranked", "count": 12, "percentage": 13}
+    ]
+  },
+  "mark": "bar",
+  "encoding": {
+    "x": {"field": "percentage", "type": "quantitative", "title": "Percentage of National Population (%)"},
+    "y": {"field": "stage", "type": "nominal", "sort": ["1. Aware of E-Sports", "2. Familiar with Games", "3. Active Players", "4. Competitive/Ranked"], "title": "Player Journey Stage"},
+    "color": {
+      "field": "percentage",
+      "type": "quantitative",
+      "scale": {"scheme": "oranges"},
+      "legend": false
+    },
+    "tooltip": [
+      {"field": "stage", "type": "nominal", "title": "Stage"},
+      {"field": "count", "type": "quantitative", "title": "Count (% of 100M)"},
+      {"field": "percentage", "type": "quantitative", "title": "Percentage %"}
+    ]
+  }
+}

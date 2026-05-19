@@ -1,0 +1,30 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "E-Sports Awareness by Age Group & Region",
+  "width": 700,
+  "height": 400,
+  "data": {
+    "values": [
+      {"region": "Klang Valley", "age_group": "18-24", "awareness": 50},
+      {"region": "Klang Valley", "age_group": "25-34", "awareness": 52},
+      {"region": "Johor Bahru", "age_group": "18-24", "awareness": 48},
+      {"region": "Johor Bahru", "age_group": "25-34", "awareness": 45},
+      {"region": "Penang", "age_group": "18-24", "awareness": 42},
+      {"region": "Penang", "age_group": "25-34", "awareness": 40},
+      {"region": "Kuantan", "age_group": "18-24", "awareness": 38},
+      {"region": "Kuantan", "age_group": "25-34", "awareness": 35}
+    ]
+  },
+  "mark": "bar",
+  "encoding": {
+    "x": {"field": "region", "type": "nominal", "title": "Region"},
+    "y": {"field": "awareness", "type": "quantitative", "title": "Awareness (%)"},
+    "color": {"field": "age_group", "type": "nominal", "scale": {"domain": ["18-24", "25-34"], "range": ["#3B8BD4", "#E85A2C"]}, "title": "Age Group"},
+    "xOffset": ["age_group"],
+    "tooltip": [
+      {"field": "region", "type": "nominal", "title": "Region"},
+      {"field": "age_group", "type": "nominal", "title": "Age Group"},
+      {"field": "awareness", "type": "quantitative", "title": "Awareness %"}
+    ]
+  }
+}

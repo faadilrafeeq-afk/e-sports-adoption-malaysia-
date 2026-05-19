@@ -1,0 +1,52 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "E-Sports Enthusiasts Growth (2020-2024)",
+  "width": 700,
+  "height": 400,
+  "data": {
+    "values": [
+      {"year": 2020, "enthusiasts": 4.8, "milestone": "Pandemic boom begins"},
+      {"year": 2021, "enthusiasts": 5.5, "milestone": ""},
+      {"year": 2022, "enthusiasts": 6.2, "milestone": ""},
+      {"year": 2023, "enthusiasts": 7.0, "milestone": "Government recognizes esports"},
+      {"year": 2024, "enthusiasts": 7.8, "milestone": "RM30M budget allocation"}
+    ]
+  },
+  "layer": [
+    {
+      "mark": {"type": "line", "point": true, "color": "#667eea", "size": 80, "strokeWidth": 3},
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative",
+          "title": "Year",
+          "scale": {"domain": [2019.5, 2024.5]},
+          "axis": {"format": "d"}
+        },
+        "y": {
+          "field": "enthusiasts",
+          "type": "quantitative",
+          "title": "Enthusiasts (Millions)",
+          "scale": {"domain": [4, 8]}
+        },
+        "tooltip": [
+          {"field": "year", "type": "quantitative", "title": "Year"},
+          {"field": "enthusiasts", "type": "quantitative", "title": "Enthusiasts (Millions)", "format": ".1f"},
+          {"field": "milestone", "type": "nominal", "title": "Milestone"}
+        ]
+      }
+    },
+    {
+      "mark": {"type": "text", "align": "center", "baseline": "bottom", "dy": -10, "fontSize": 11, "fontStyle": "italic"},
+      "encoding": {
+        "x": {"field": "year", "type": "quantitative"},
+        "y": {"field": "enthusiasts", "type": "quantitative"},
+        "text": {"field": "milestone", "type": "nominal"},
+        "opacity": {
+          "condition": {"test": "datum.milestone !== ''", "value": 1},
+          "value": 0
+        }
+      }
+    }
+  ]
+}

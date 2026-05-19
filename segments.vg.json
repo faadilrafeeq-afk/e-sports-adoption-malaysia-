@@ -1,0 +1,30 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "E-Sports Player Segments by Engagement Level",
+  "width": 500,
+  "height": 500,
+  "data": {
+    "values": [
+      {"segment": "Casual Viewers", "percentage": 28, "engagement": "Watch occasionally"},
+      {"segment": "Enthusiasts", "percentage": 32, "engagement": "Active participants"},
+      {"segment": "Semi-Pro", "percentage": 25, "engagement": "Tournament competitors"},
+      {"segment": "Professional", "percentage": 15, "engagement": "Full-time competitors"}
+    ]
+  },
+  "mark": "arc",
+  "encoding": {
+    "theta": {"field": "percentage", "type": "quantitative", "stack": "normalize"},
+    "radius": {"field": "percentage", "type": "quantitative", "scale": {"type": "sqrt", "zero": false, "rangeMin": 20, "rangeMax": 150}},
+    "color": {
+      "field": "segment",
+      "type": "nominal",
+      "scale": {"scheme": "category10"},
+      "title": "Segment"
+    },
+    "tooltip": [
+      {"field": "segment", "type": "nominal", "title": "Segment"},
+      {"field": "percentage", "type": "quantitative", "title": "Market Share %"},
+      {"field": "engagement", "type": "nominal", "title": "Engagement Level"}
+    ]
+  }
+}

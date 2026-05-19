@@ -1,0 +1,30 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "E-Sports Game Genre Distribution in Malaysia",
+  "width": 500,
+  "height": 400,
+  "data": {
+    "values": [
+      {"genre": "Mobile MOBA", "viewership": 35},
+      {"genre": "Battle Royale", "viewership": 25},
+      {"genre": "Fighting Games", "viewership": 15},
+      {"genre": "FPS / Tactical", "viewership": 18},
+      {"genre": "Strategy / MMO", "viewership": 7}
+    ]
+  },
+  "mark": {"type": "arc", "innerRadius": 60},
+  "encoding": {
+    "theta": {"field": "viewership", "type": "quantitative", "stack": "normalize"},
+    "radius": {"field": "viewership", "type": "quantitative", "scale": {"type": "sqrt", "zero": false, "rangeMin": 20, "rangeMax": 150}},
+    "color": {
+      "field": "genre",
+      "type": "nominal",
+      "scale": {"scheme": "spectral"},
+      "title": "Genre"
+    },
+    "tooltip": [
+      {"field": "genre", "type": "nominal", "title": "Genre"},
+      {"field": "viewership", "type": "quantitative", "title": "Viewership Share %"}
+    ]
+  }
+}
