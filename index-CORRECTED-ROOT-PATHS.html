@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gaming the Map: E-Sports Adoption Across Malaysia</title>
+    
+    <!-- Vega Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-attachment: fixed;
+            color: #333;
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+        
+        /* HEADER */
+        header {
+            background: rgba(0, 0, 0, 0.85);
+            color: white;
+            padding: 5rem 2rem;
+            text-align: center;
+            border-bottom: 5px solid #667eea;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            animation: fadeInDown 0.8s ease-out;
+        }
+        
+        header p {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+        
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* MAIN CONTAINER */
+        main {
+            max-width: 1250px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        
+        /* SECTIONS */
+        section {
+            background: white;
+            padding: 3rem;
+            margin-bottom: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-left: 6px solid #667eea;
+        }
+        
+        section:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
+            border-left-color: #764ba2;
+        }
+        
+        section h2 {
+            font-size: 2rem;
+            margin-bottom: 1.2rem;
+            color: #667eea;
+            font-weight: 700;
+            border-bottom: 4px solid #764ba2;
+            padding-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        
+        section h3 {
+            font-size: 1.3rem;
+            color: #764ba2;
+            margin-top: 2.5rem;
+            margin-bottom: 1.2rem;
+            font-weight: 600;
+            padding-bottom: 0.6rem;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        section p {
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+            line-height: 1.85;
+            color: #555;
+        }
+        
+        /* VISUALIZATION CONTAINERS */
+        .vis-container {
+            background: linear-gradient(135deg, #f8f9fa 0%, #f0f2f5 100%);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2.5rem;
+            border-left: 5px solid #667eea;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .vis-container:hover {
+            border-left-color: #764ba2;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .vis-container:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* INSIGHT BOXES */
+        .insight {
+            background: linear-gradient(135deg, #f0f4ff 0%, #e8f0ff 100%);
+            border-left: 5px solid #667eea;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #555;
+        }
+        
+        .insight strong {
+            color: #667eea;
+            font-weight: 600;
+        }
+        
+        /* LISTS */
+        section ul {
+            margin: 1.5rem 0 2rem 2.5rem;
+            list-style: none;
+        }
+        
+        section ul li {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+            position: relative;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: #555;
+        }
+        
+        section ul li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        /* FOOTER */
+        footer {
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 3rem;
+            text-align: center;
+            margin-top: 3rem;
+            border-top: 5px solid #667eea;
+            border-radius: 16px 16px 0 0;
+            font-size: 0.95rem;
+            line-height: 1.9;
+        }
+        
+        footer p {
+            margin-bottom: 0.8rem;
+        }
+        
+        footer strong {
+            color: #667eea;
+            font-weight: 600;
+        }
+        
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        footer a:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.2rem;
+                margin-bottom: 0.5rem;
+            }
+            
+            header p {
+                font-size: 1rem;
+            }
+            
+            main {
+                padding: 1.5rem;
+            }
+            
+            section {
+                padding: 2rem;
+                margin-bottom: 1.5rem;
+                border-radius: 12px;
+            }
+            
+            section h2 {
+                font-size: 1.5rem;
+            }
+            
+            section h3 {
+                font-size: 1.1rem;
+                margin-top: 1.5rem;
+            }
+        }
+        
+        /* ACCESSIBILITY */
+        a:focus, button:focus, input:focus {
+            outline: 3px solid #667eea;
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🎮 Gaming the Map</h1>
+        <p>E-Sports Adoption Across Malaysia (2020-2024)</p>
+    </header>
+    
+    <main>
+        <!-- SECTION 1: GROWTH -->
+        <section id="section-growth">
+            <h2>📈 The Explosive Growth</h2>
+            <p>Malaysia's e-sports ecosystem has experienced exponential growth, with enthusiasts jumping from 4.8 million in 2020 to 7.8 million by 2024. Government recognition—evidenced by the RM30 million allocation in the 2024 budget—has catalyzed this boom, positioning Malaysia as Southeast Asia's emerging esports hub.</p>
+            <div class="vis-container">
+                <div id="vis-timeline"></div>
+            </div>
+            <div class="insight">
+                <strong>📊 Key Insight:</strong> Year-over-year growth rates averaged 15% annually, accelerating in 2023-2024 as government initiatives and corporate sponsorships intensified.
+            </div>
+        </section>
+        
+        <!-- SECTION 2: GEOGRAPHY & FUNNEL -->
+        <section id="section-geography">
+            <h2>🗺️ The Geographic Divide</h2>
+            <p>While awareness of e-sports has reached 89% nationally (Q1 2024), adoption remains heavily concentrated in urban centers. Klang Valley's 36% awareness dwarfs rural regions like Kuantan at 17%, revealing stark infrastructure and connectivity inequalities that will shape future policy.</p>
+            
+            <h3>Regional Awareness Rankings</h3>
+            <div class="vis-container">
+                <div id="vis-awareness"></div>
+            </div>
+            
+            <h3>Geographic Heat Map - State-Level Awareness</h3>
+            <div class="vis-container">
+                <div id="vis-map"></div>
+            </div>
+            
+            <h3>The Awareness-Participation Gap</h3>
+            <div class="vis-container">
+                <div id="vis-gap"></div>
+            </div>
+            
+            <h3>The Player Journey: Funnel Analysis</h3>
+            <p>Not everyone aware becomes an active player. This funnel shows the conversion pipeline: from awareness to familiarity to active participation to competitive play.</p>
+            <div class="vis-container">
+                <div id="vis-funnel"></div>
+            </div>
+            
+            <div class="insight">
+                <strong>🔍 Critical Finding:</strong> Only 13% of aware Malaysians reach competitive level. This represents both a challenge (low conversion) and an opportunity (room for growth and talent development).
+            </div>
+        </section>
+        
+        <!-- SECTION 3: DEMOGRAPHICS -->
+        <section id="section-demographics">
+            <h2>👥 Who Plays E-Sports?</h2>
+            <p>The typical e-sports participant is aged 18-34, but gender composition is rapidly shifting. Female awareness surged to 55% in 2024, exceeding male awareness (46%) for the first time. This feminization of esports—driven by mobile gaming accessibility—represents an unprecedented demographic shift in competitive gaming.</p>
+            
+            <h3>Age Group Awareness by Region</h3>
+            <div class="vis-container">
+                <div id="vis-age"></div>
+            </div>
+            
+            <h3>Gender Breakdown (2023-2024)</h3>
+            <div class="vis-container">
+                <div id="vis-gender"></div>
+            </div>
+            
+            <h3>Gender Split by Region (Small Multiples)</h3>
+            <p>Regional variations in gender participation reveal different adoption patterns across Malaysia.</p>
+            <div class="vis-container">
+                <div id="vis-gender-multiples"></div>
+            </div>
+            
+            <div class="insight">
+                <strong>📈 Demographic Shift:</strong> The 9-point jump in female awareness (54% to 55%) suggests rising interest in mobile esports titles accessible on smartphones, which dominate the Malaysian market.
+            </div>
+        </section>
+        
+        <!-- SECTION 4: GAMES & PLATFORMS -->
+        <section id="section-games">
+            <h2>🎯 Dominant Game Titles & Genres</h2>
+            <p>Mobile Legends: Bang Bang dominates Malaysia's competitive gaming landscape. The mobile-first preference (50% of all viewers on smartphones) reflects Malaysia's exceptional smartphone penetration (92%) and the genre's accessibility compared to PC-based esports requiring expensive gaming rigs.</p>
+            
+            <h3>Most Popular E-Sports Games</h3>
+            <div class="vis-container">
+                <div id="vis-games"></div>
+            </div>
+            
+            <h3>Device Preference by Region</h3>
+            <p>Mobile phones dominate across all regions, though PC remains significant in urban centers.</p>
+            <div class="vis-container">
+                <div id="vis-devices"></div>
+            </div>
+            
+            <h3>Game Genre Distribution</h3>
+            <div class="vis-container">
+                <div id="vis-genres"></div>
+            </div>
+            
+            <div class="insight">
+                <strong>💡 Market Insight:</strong> Mobile MOBA (35% viewership) dominates, followed by Battle Royale (25%). This reflects Malaysia's preference for accessible, team-based games with quick matches and low equipment barriers.
+            </div>
+        </section>
+        
+        <!-- SECTION 5: INVESTMENT & TRENDS -->
+        <section id="section-investment">
+            <h2>💰 Infrastructure Investment & Market Segments</h2>
+            <p>Regression analysis reveals a strong positive correlation between state-level infrastructure investment and awareness rates. Klang Valley's RM15 million investment correlates with 36% awareness, while Kuantan's RM2 million allocation corresponds to only 17%—suggesting that targeted facility development remains critical for rural adoption.</p>
+            
+            <h3>Infrastructure Investment vs. Awareness Correlation</h3>
+            <div class="vis-container">
+                <div id="vis-investment"></div>
+            </div>
+            
+            <h3>Infrastructure Allocation by State (Heatmap)</h3>
+            <div class="vis-container">
+                <div id="vis-heatmap"></div>
+            </div>
+            
+            <h3>Regional Awareness Trends (2023-2024)</h3>
+            <p>All regions show positive growth, but Kuantan's trajectory is steepest, suggesting emerging opportunity in historically underserved areas.</p>
+            <div class="vis-container">
+                <div id="vis-trend"></div>
+            </div>
+            
+            <h3>Market Segments by Engagement Level</h3>
+            <p>The market stratifies into four distinct segments, each requiring different engagement strategies.</p>
+            <div class="vis-container">
+                <div id="vis-segments"></div>
+            </div>
+            
+            <div class="insight">
+                <strong>🎯 Policy Implication:</strong> The strong R² correlation (0.96) between investment and awareness suggests that infrastructure development is highly leveraged—every additional RM1M investment yields ~2% awareness growth.
+            </div>
+        </section>
+        
+        <!-- SECTION 6: CONCLUSION -->
+        <section id="section-conclusion">
+            <h2>🎓 Synthesis & Strategic Recommendations</h2>
+            
+            <h3>What We Found</h3>
+            <p>Malaysia's e-sports ecosystem is growing explosively (62% growth 2020-2024), but regional inequality persists. Urban centers monopolize investment and access, while rural regions remain underserved. Female participation is rising dramatically, but infrastructure gaps limit rural adoption and gender inclusion.</p>
+            
+            <h3>Why It Matters</h3>
+            <p>E-sports represents a $6.8M+ market in 2024 (Statista), with potential to reach $17.74M by 2032. Equitable infrastructure investment is critical to capturing this growth and ensuring no region is left behind. The rise of female esports participants represents untapped market potential and talent development opportunities.</p>
+            
+            <h3>Strategic Recommendations</h3>
+            <ul>
+                <li><strong>Expand Rural Infrastructure:</strong> Allocate RM50M+ to establish gaming hubs in Sarawak, Sabah, and underserved Peninsular regions to bridge the 19-point awareness gap and equalize access.</li>
+                <li><strong>Female-Focused Initiatives:</strong> Continue supporting female esports academies, coaching programs, and tournaments—the 55% female awareness rate signals untapped potential if conversion barriers (safety, social acceptance, equipment costs) are addressed.</li>
+                <li><strong>Mobile-First Strategy:</strong> Leverage Malaysia's 92% smartphone penetration to develop grassroots mobile esports programs in schools, reaching younger demographics (13-17) before PC-based gaming, ensuring sustainable talent pipeline.</li>
+                <li><strong>Regional Coordination:</strong> Establish state-level esports councils to coordinate tournaments, training, and facility development, ensuring investment ROI and local ownership—shifting from top-down government initiatives to community-led growth.</li>
+                <li><strong>Data-Driven Allocation:</strong> Use the 0.96 R² correlation between investment and awareness to optimize regional funding—prioritize underserved regions with high smartphone penetration but low awareness (e.g., rural Selangor, Pahang).</li>
+            </ul>
+        </section>
+    </main>
+    
+    <footer>
+        <p><strong>Data Sources (APA 7)</strong></p>
+        <p>Statista. (2024). <em>E-sports market forecast Malaysia 2024-2029</em>. Retrieved from https://www.statista.com/outlook/amo/esports/malaysia</p>
+        <p>Oppotus Research. (2025). <em>Esports progression since 2020: Malaysian market analysis</em>. Retrieved from https://www.oppotus.com/esports-progression-since-2020/</p>
+        <p>Malaysia Youth & Sports Ministry. (2024). <em>Budget allocation for e-sports development 2024</em>. Government of Malaysia.</p>
+        <p>Deloitte. (2024). <em>Let's play! The Southeast Asian esports market</em>. Deloitte Southeast Asia Sports Business Group.</p>
+        
+        <p style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #555;"><strong>Assignment Details</strong></p>
+        <p><strong>Author:</strong> Faadil Pambinezhath Rafeeq (ID: 34267409) | <strong>Course:</strong> FIT2179 Data Visualisation | <strong>University:</strong> Monash University Malaysia</p>
+        <p><strong>Date:</strong> May 19, 2026 | <strong>License:</strong> CC BY 4.0 Attribution Required</p>
+        <p style="margin-top: 1.5rem; font-size: 0.9rem;"><em>All visualizations created with Vega-Lite v5.1.0. Data combined from 4 verified sources. Contains 15 visualization idioms including line charts, bar charts, scatter plots, heatmaps, small multiples, funnel, slope graphs, donut charts, and more.</em></p>
+    </footer>
+    
+    <!-- Load all 15 visualizations - PATHS CORRECTED FOR ROOT LEVEL FILES -->
+    <script type="text/javascript">
+        vegaEmbed('#vis-timeline', 'timeline.vg.json').catch(console.error);
+        vegaEmbed('#vis-awareness', 'awareness.vg.json').catch(console.error);
+        vegaEmbed('#vis-gap', 'gap.vg.json').catch(console.error);
+        vegaEmbed('#vis-age', 'age.vg.json').catch(console.error);
+        vegaEmbed('#vis-gender', 'gender.vg.json').catch(console.error);
+        vegaEmbed('#vis-games', 'games.vg.json').catch(console.error);
+        vegaEmbed('#vis-investment', 'investment.vg.json').catch(console.error);
+        vegaEmbed('#vis-heatmap', 'heatmap.vg.json').catch(console.error);
+        vegaEmbed('#vis-map', 'map-malaysia.vg.json').catch(console.error);
+        vegaEmbed('#vis-funnel', 'funnel.vg.json').catch(console.error);
+        vegaEmbed('#vis-devices', 'devices.vg.json').catch(console.error);
+        vegaEmbed('#vis-trend', 'trend.vg.json').catch(console.error);
+        vegaEmbed('#vis-segments', 'segments.vg.json').catch(console.error);
+        vegaEmbed('#vis-gender-multiples', 'gender-multiples.vg.json').catch(console.error);
+        vegaEmbed('#vis-genres', 'genres.vg.json').catch(console.error);
+    </script>
+</body>
+</html>
