@@ -1,0 +1,24 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "The Awareness-Participation Gap",
+  "width": 600,
+  "height": 350,
+  "data": {
+    "values": [
+      {"region": "Klang Valley", "gap": 15},
+      {"region": "Johor Bahru", "gap": 12},
+      {"region": "Penang", "gap": 11},
+      {"region": "Kuantan", "gap": 9}
+    ]
+  },
+  "mark": "bar",
+  "encoding": {
+    "x": {"field": "gap", "type": "quantitative", "title": "Gap: Awareness - Actual Players (%)"},
+    "y": {"field": "region", "type": "nominal", "sort": "-x", "title": "Region"},
+    "color": {"field": "gap", "type": "quantitative", "scale": {"scheme": "reds"}, "legend": false},
+    "tooltip": [
+      {"field": "region", "type": "nominal", "title": "Region"},
+      {"field": "gap", "type": "quantitative", "title": "Gap %"}
+    ]
+  }
+}
