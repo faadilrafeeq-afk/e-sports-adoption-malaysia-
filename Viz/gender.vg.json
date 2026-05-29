@@ -1,0 +1,31 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Gender Breakdown 2023-2024",
+  "width": 700,
+  "height": 400,
+  "data": {
+    "values": [
+      {"year": 2023, "gender": "Male", "awareness": 54},
+      {"year": 2023, "gender": "Female", "awareness": 46},
+      {"year": 2024, "gender": "Male", "awareness": 46},
+      {"year": 2024, "gender": "Female", "awareness": 55}
+    ]
+  },
+  "mark": "bar",
+  "encoding": {
+    "x": {"field": "year", "type": "ordinal", "title": "Year"},
+    "y": {"field": "awareness", "type": "quantitative", "title": "Awareness (%)"},
+    "color": {
+      "field": "gender",
+      "type": "nominal",
+      "scale": {"domain": ["Male", "Female"], "range": ["#667eea", "#764ba2"]},
+      "title": "Gender"
+    },
+    "xOffset": {"field": "gender"},
+    "tooltip": [
+      {"field": "year", "type": "ordinal", "title": "Year"},
+      {"field": "gender", "type": "nominal", "title": "Gender"},
+      {"field": "awareness", "type": "quantitative", "title": "Awareness %"}
+    ]
+  }
+}

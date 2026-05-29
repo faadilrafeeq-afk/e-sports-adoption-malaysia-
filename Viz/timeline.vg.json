@@ -1,0 +1,29 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "E-Sports Enthusiasts Growth (2020-2024)",
+  "width": 800,
+  "height": 400,
+  "data": {
+    "values": [
+      {"year": 2020, "enthusiasts": 4.8},
+      {"year": 2021, "enthusiasts": 5.5},
+      {"year": 2022, "enthusiasts": 6.3},
+      {"year": 2023, "enthusiasts": 7.1},
+      {"year": 2024, "enthusiasts": 7.8}
+    ]
+  },
+  "layer": [
+    {
+      "mark": {"type": "line", "point": true, "strokeWidth": 3},
+      "encoding": {
+        "x": {"field": "year", "type": "ordinal", "title": "Year"},
+        "y": {"field": "enthusiasts", "type": "quantitative", "title": "Enthusiasts (Millions)"},
+        "color": {"value": "#667eea"},
+        "tooltip": [
+          {"field": "year", "type": "ordinal", "title": "Year"},
+          {"field": "enthusiasts", "type": "quantitative", "title": "Enthusiasts (M)"}
+        ]
+      }
+    }
+  ]
+}

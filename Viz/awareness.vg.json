@@ -1,0 +1,75 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Regional E-Sports Awareness Distribution",
+    "fontSize": 14
+  },
+  "width": 400,
+  "height": 400,
+  "data": {
+    "values": [
+      {
+        "region": "Klang Valley",
+        "awareness": 36
+      },
+      {
+        "region": "Johor Bahru",
+        "awareness": 26
+      },
+      {
+        "region": "Penang",
+        "awareness": 22
+      },
+      {
+        "region": "Kuantan",
+        "awareness": 17
+      }
+    ]
+  },
+  "mark": {
+    "type": "arc",
+    "innerRadius": 100,
+    "outerRadius": 180
+  },
+  "encoding": {
+    "theta": {
+      "field": "awareness",
+      "type": "quantitative"
+    },
+    "color": {
+      "field": "region",
+      "type": "nominal",
+      "scale": {
+        "domain": [
+          "Klang Valley",
+          "Johor Bahru",
+          "Penang",
+          "Kuantan"
+        ],
+        "range": [
+          "#2c5fad",
+          "#667eea",
+          "#9fb8f5",
+          "#c5d5fa"
+        ]
+      },
+      "title": "Region",
+      "legend": {
+        "orient": "right",
+        "labelFontSize": 12
+      }
+    },
+    "tooltip": [
+      {
+        "field": "region",
+        "type": "nominal",
+        "title": "Region"
+      },
+      {
+        "field": "awareness",
+        "type": "quantitative",
+        "title": "Awareness %"
+      }
+    ]
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Tournament Investment by Game Title",
+  "width": 800,
+  "height": 450,
+  "data": {
+    "values": [
+      {
+        "format": "Mobile Legends",
+        "tournaments": 45,
+        "playerBase": 2.1
+      },
+      {
+        "format": "Dota 2",
+        "tournaments": 28,
+        "playerBase": 1.8
+      },
+      {
+        "format": "FPS / Tactical",
+        "tournaments": 22,
+        "playerBase": 1.2
+      },
+      {
+        "format": "Fighting Games",
+        "tournaments": 18,
+        "playerBase": 0.9
+      },
+      {
+        "format": "Strategy / MMO",
+        "tournaments": 12,
+        "playerBase": 0.8
+      }
+    ]
+  },
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "tournaments",
+      "type": "quantitative",
+      "title": "Active Tournaments (2024)"
+    },
+    "y": {
+      "field": "format",
+      "type": "nominal",
+      "sort": "-x",
+      "title": "Game Format"
+    },
+    "color": {
+      "field": "tournaments",
+      "type": "quantitative",
+      "scale": {
+        "scheme": "blues"
+      },
+      "legend": false
+    },
+    "tooltip": [
+      {
+        "field": "format",
+        "type": "nominal",
+        "title": "Format"
+      },
+      {
+        "field": "tournaments",
+        "type": "quantitative",
+        "title": "Active Tournaments"
+      },
+      {
+        "field": "playerBase",
+        "type": "quantitative",
+        "title": "Players (Millions)",
+        "format": ".1f"
+      }
+    ]
+  }
+}
