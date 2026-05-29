@@ -1,0 +1,26 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Infrastructure Investment vs Awareness",
+  "width": 700,
+  "height": 450,
+  "data": {
+    "values": [
+      {"region": "Klang Valley", "investment": 15, "awareness": 36},
+      {"region": "Johor Bahru", "investment": 8, "awareness": 26},
+      {"region": "Penang", "investment": 5, "awareness": 22},
+      {"region": "Kuantan", "investment": 2, "awareness": 17}
+    ]
+  },
+  "mark": "circle",
+  "encoding": {
+    "x": {"field": "investment", "type": "quantitative", "title": "Investment (RM Millions)"},
+    "y": {"field": "awareness", "type": "quantitative", "title": "Awareness (%)"},
+    "size": {"value": 300},
+    "color": {"value": "#667eea"},
+    "tooltip": [
+      {"field": "region", "type": "nominal", "title": "Region"},
+      {"field": "investment", "type": "quantitative", "title": "Investment (RM M)"},
+      {"field": "awareness", "type": "quantitative", "title": "Awareness %"}
+    ]
+  }
+}

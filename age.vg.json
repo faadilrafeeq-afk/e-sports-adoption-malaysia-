@@ -1,0 +1,35 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Age Group Awareness by Region",
+  "width": 700,
+  "height": 400,
+  "data": {
+    "values": [
+      {"region": "Klang Valley", "ageGroup": "18-24", "awareness": 52},
+      {"region": "Klang Valley", "ageGroup": "25-34", "awareness": 38},
+      {"region": "Johor Bahru", "ageGroup": "18-24", "awareness": 45},
+      {"region": "Johor Bahru", "ageGroup": "25-34", "awareness": 32},
+      {"region": "Penang", "ageGroup": "18-24", "awareness": 40},
+      {"region": "Penang", "ageGroup": "25-34", "awareness": 28},
+      {"region": "Kuantan", "ageGroup": "18-24", "awareness": 30},
+      {"region": "Kuantan", "ageGroup": "25-34", "awareness": 20}
+    ]
+  },
+  "mark": "bar",
+  "encoding": {
+    "x": {"field": "region", "type": "nominal", "title": "Region"},
+    "y": {"field": "awareness", "type": "quantitative", "title": "Awareness (%)"},
+    "color": {
+      "field": "ageGroup",
+      "type": "nominal",
+      "scale": {"domain": ["18-24", "25-34"], "range": ["#667eea", "#764ba2"]},
+      "title": "Age Group"
+    },
+    "xOffset": {"field": "ageGroup"},
+    "tooltip": [
+      {"field": "region", "type": "nominal", "title": "Region"},
+      {"field": "ageGroup", "type": "nominal", "title": "Age Group"},
+      {"field": "awareness", "type": "quantitative", "title": "Awareness %"}
+    ]
+  }
+}
